@@ -1,0 +1,13 @@
+PODS:
+  - iRate (1.7.5)
+  - LARSBar (1.0.0)
+
+DEPENDENCIES:
+  - iRate
+  - LARSBar
+
+SPEC CHECKSUMS:
+  iRate: 8de5eaeca627c7708c8aec279eeb8daf2551c774
+  LARSBar: ca7cabfb7f852f5bde474b5f24a4425c93fe44bf
+
+COCOAPODS: 0.22.3
