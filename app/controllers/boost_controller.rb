@@ -1,6 +1,6 @@
 class BoostController < UIViewController
 
-  BG_COLOR = "#333444".to_color
+  BG_COLOR = "#111222".to_color
   #GLOW_COLORS = ["#26CAE7", "#4DA3D0", "#747CBA", "#9C55A4", "#C32E8E", "#EB0778"].map(&:to_color)
   GLOW_COLORS = ["#26CAE7", "#22E7BD", "#1FE774", "#1CE828", "#59E819", "#E9E113"].map(&:to_color)
 
@@ -27,6 +27,9 @@ class BoostController < UIViewController
     @label.backgroundColor = UIColor.clearColor
     @label.textColor = UIColor.whiteColor
     self.view.addSubview @label
+
+    @circle = TBCircularSlider.alloc.initWithFrame(CGRectMake(0, 200, 250, 250))
+    self.view.addSubview @circle
 
   end
 

@@ -59,7 +59,7 @@ Motion::Project::App.setup do |app|
     #pod "DAKeyboardControl"
     #pod "TTTAttributedLabel"
     #pod "SVPullToRefresh"
-    #pod "AFNetworking"
+    pod "AFNetworking", '~> 1.3.2'
     #pod "MWFeedParser"
     #pod "OHAttributedLabel"
     pod "iRate"
@@ -67,7 +67,8 @@ Motion::Project::App.setup do |app|
     #pod "Facebook-iOS-SDK"
   end
 
-  # Include custom version of SEHumanizedTimeDiff
+  # Include Objective-C Libraries.
+  app.vendor_project('vendor/TBCircularSlider', :static)
   #app.vendor_project('vendor/SEHumanizedTime', :static)
 
   # Set up red/green output style.

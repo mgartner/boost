@@ -16,3 +16,6 @@ nbproject
 .idea
 .dat*
 vendor/Pods
+vendor/**/*.bridgesupport
+vendor/**/build-iPhoneOS
+vendor/**/build-iPhoneSimulator

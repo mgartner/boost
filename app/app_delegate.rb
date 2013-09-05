@@ -1,6 +1,10 @@
 class AppDelegate
 
   def initialize
+
+    # Enable the Network Activity Indicator for AFMotion requests.
+    AFNetworkActivityIndicatorManager.sharedManager.setEnabled(true)
+
     #irate = IRate.sharedInstance
     #irate.messageTitle = "Rate Fanium"
     #irate.message = "Please take a moment to rate Fanium Fantasy Football. Thanks for playing!"
