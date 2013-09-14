@@ -1,7 +1,7 @@
 class AppDelegate
+  attr_accessor :user
 
   def initialize
-
     # Enable the Network Activity Indicator for AFMotion requests.
     AFNetworkActivityIndicatorManager.sharedManager.setEnabled(true)
 
@@ -16,9 +16,10 @@ class AppDelegate
   def application(application, didFinishLaunchingWithOptions:launchOptions)
     @window = UIWindow.alloc.initWithFrame(UIScreen.mainScreen.bounds)
     @boost_controller = BoostController.alloc.initWithNibName(nil, bundle:nil)
-    @window.rootViewController = @boost_controller
+    @navigation_controller = UINavigationController.alloc.initWithRootViewController(@boost_controller)
+    @window.rootViewController = @navigation_controller
     @window.makeKeyAndVisible
-
     true
   end
+
 end

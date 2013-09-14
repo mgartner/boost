@@ -55,7 +55,7 @@ Motion::Project::App.setup do |app|
   # Add the necessary cocoa pods.
   app.pods do
     #pod "PrettyKit"
-    #pod "SVProgressHUD"
+    pod "SVProgressHUD"
     #pod "DAKeyboardControl"
     #pod "TTTAttributedLabel"
     #pod "SVPullToRefresh"
@@ -63,7 +63,7 @@ Motion::Project::App.setup do |app|
     #pod "MWFeedParser"
     #pod "OHAttributedLabel"
     pod "iRate"
-    pod "LARSBar"
+    pod "DAProgressOverlayView"
     #pod "Facebook-iOS-SDK"
   end
 

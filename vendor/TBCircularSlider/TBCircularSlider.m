@@ -42,7 +42,8 @@
         radius = self.frame.size.width/2 - TB_SAFEAREA_PADDING;
         
         //Initialize the Angle at 0
-        self.angle = 360;
+        self.angle = 179;
+        self.value = 0;
         
         
         //Define the Font
@@ -60,7 +61,7 @@
         _textField.textColor = [UIColor colorWithWhite:1 alpha:1.0];
         _textField.textAlignment = NSTextAlignmentCenter;
         _textField.font = font;
-        _textField.text = [NSString stringWithFormat:@"%d",self.angle];
+        _textField.text = [NSString stringWithFormat:@"%d",self.value];
         _textField.enabled = NO;
         
         [self addSubview:_textField];
@@ -237,17 +238,17 @@
 
     self.angle = 360 - angleInt;
 
-    float value = 0.0;
+    float temp = 0.0;
     if (self.angle > 180) {
-      value = (360.0 - self.angle) + 180.0;
+      temp = (360.0 - self.angle) + 180.0;
     } else {
-      value = 180.0 - self.angle;
+      temp = 180.0 - self.angle;
     }
-    value = (value / 360.0) * 99.0;
-    NSLog(@"THE LOG SCORE : %f", value);
+    temp = (temp * temp) / 1296.0;
+    self.value = floor(temp);
 
     //Update the textfield 
-    _textField.text = [NSString stringWithFormat:@"%d", (int) floor(value)];
+    _textField.text = [NSString stringWithFormat:@"%d", self.value];
     
     //Redraw
     [self setNeedsDisplay];

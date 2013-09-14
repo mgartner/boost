@@ -17,4 +17,5 @@
 
 @interface TBCircularSlider : UIControl
 @property (nonatomic,assign) int angle;
+@property (nonatomic,assign) int value;
 @end
