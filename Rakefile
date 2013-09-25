@@ -18,7 +18,7 @@ Motion::Project::App.setup do |app|
   app.short_version = "1.0.0"
 
   # Set the SDK to 6.0.
-  app.deployment_target = "6.0"
+  app.deployment_target = "7.0"
 
   # The name of our team distribution profile, make sure to download 
   # from the Apple Provisioning Portal and install in your keychain.

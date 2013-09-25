@@ -2,10 +2,29 @@ module Heroku
   class User
 
     DOMAIN = "http://api.heroku.com/"
+    KEY = "Heroku::User"
 
     PROPERTIES = [:api_key, :email]
     PROPERTIES.each do |prop|
       attr_accessor prop
+    end
+
+    def self.current
+      if user_as_data = App::Persistence[KEY]
+        user = NSKeyedUnarchiver.unarchiveObjectWithData(user_as_data)
+        return user
+      else
+        return nil
+      end
+    end
+    
+    def self.clear
+      App::Persistence[KEY] = nil
+    end
+
+    def save
+      user_as_data = NSKeyedArchiver.archivedDataWithRootObject(self)
+      App::Persistence[KEY] = user_as_data
     end
 
     def self.login(username, password, &block)
@@ -22,7 +41,9 @@ module Heroku
       BW::HTTP.post("https://api.heroku.com/login", opts) do |response|
         if response.ok?
           json = BW::JSON.parse(response.body.to_s)
-          block.call(User.new(json))
+          user = User.new(json)
+          user.save
+          block.call(user)
         else
           block.call(nil)
         end

@@ -11,7 +11,9 @@ Teacup::Stylesheet.new :sign_in do
     placeholder: "email",
     textColor: "#FFF".to_color,
     backgroundColor: "#444555".to_color,
-    keyboardType: UIKeyboardTypeEmailAddress
+    keyboardType: UIKeyboardTypeEmailAddress,
+    autocapitalizationType: UITextAutocapitalizationTypeNone,
+    autocorrectionType: UITextAutocorrectionTypeNo
   style :password_field,
     origin: [20, 185],
     size: [280, 30],

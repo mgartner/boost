@@ -1,31 +1,17 @@
 class AppController < UIViewController
-
-  BG_COLOR = "#111222".to_color
-  #GLOW_COLORS = ["#26CAE7", "#4DA3D0", "#747CBA", "#9C55A4", "#C32E8E", "#EB0778"].map(&:to_color)
-  GLOW_COLORS = ["#26CAE7", "#22E7BD", "#1FE774", "#1CE828", "#59E819", "#E9E113"].map(&:to_color)
-
+  stylesheet :app
+  attr_accessor :app
+  
   def viewDidLoad
-    super
-
-    # Set the tracking view name.
-    self.title = "BOOST"
-
-    self.view.backgroundColor = BG_COLOR
-
-    @label = UILabel.alloc.initWithFrame(CGRectMake(50, 50, 100, 30))
-    @label.backgroundColor = UIColor.clearColor
-    @label.textColor = UIColor.whiteColor
-    self.view.addSubview @label
-
-    @circle_slider = TBCircularSlider.alloc.initWithFrame(CGRectMake(0, 200, 250, 250))
-    @circle_slider.addTarget(self, action: "slider_action:", forControlEvents: UIControlEventValueChanged)
-    self.view.addSubview @circle_slider
-
-    # Show a sign up view if there is no user
-    if App.delegate.user.nil?
-      show_sign_up_modal_view(true)
+    layout(self.view, :root) do
+      #@label = subview(UILabel, :label)
+      @dyno_table = subview(DynoTableView, :dyno_table)
+      @dyno_table.dataSource = self
+      #@circle_slider = subview(TBCircularSlider, :circle_slider)
     end
-
+   # @circle_slider = TBCircularSlider.alloc.initWithFrame(CGRectMake(0, 200, 250, 250))
+   # @circle_slider.addTarget(self, action: "slider_action:", forControlEvents: UIControlEventValueChanged)
+   # self.view.addSubview @circle_slider
   end
 
   def slider_action(slider)
@@ -36,10 +22,32 @@ class AppController < UIViewController
 
   def viewWillAppear(animated)
     super
+
+    if user = App.delegate.user
+      user.dynos(app.name) do |dynos|
+        @dynos = dynos
+        @dyno_table.reloadData
+      end
+    end
   end
 
   def viewWillDisappear(animated)
     super
+  end
+
+  def tableView(table_view, cellForRowAtIndexPath: index_path)
+    cell = table_view.dequeueReusableCellWithIdentifier(self.class.to_s) ||
+      DynoTableViewCell.alloc.initWithStyle(UITableViewCellStyleDefault, reuseIdentifier: self.class.to_s)
+    layout(cell, :dyno_table_cell)
+    dyno = @dynos[index_path.row]
+    cell.title.text = dyno.type
+    cell.command.text = dyno.command
+    cell.dyno_size.text = dyno.size.to_s
+    return cell
+  end
+
+  def tableView(table_view, numberOfRowsInSection: section)
+    @dynos ? @dynos.size : 0
   end
 
 end
