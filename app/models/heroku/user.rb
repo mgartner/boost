@@ -3,6 +3,7 @@ module Heroku
 
     DOMAIN = "http://api.heroku.com/"
     KEY = "Heroku::User"
+    EXCLUDE_DYNOS = ["console", "rake"]
 
     PROPERTIES = [:api_key, :email]
     PROPERTIES.each do |prop|
@@ -98,9 +99,8 @@ module Heroku
       BW::HTTP.get("https://api.heroku.com/apps/#{id}/formation", auth_options) do |response|
         if response.ok?
           dynos = BW::JSON.parse(response.body.to_s)
-          puts dynos
           dynos.map! { |dyno_json| Heroku::Dyno.new(dyno_json) }
-          puts dynos
+          dynos.delete_if { |dyno| EXCLUDE_DYNOS.include?(dyno.type) }
           block.call(dynos)
         else
           block.call(nil)
@@ -112,7 +112,6 @@ module Heroku
       options = auth_options
       options[:payload] = {type: type, qty: quantity}
       BW::HTTP.post("https://api.heroku.com/apps/#{id}/ps/scale", options) do |response|
-        puts response
         if response.ok?
           block.call(response.body)
         else

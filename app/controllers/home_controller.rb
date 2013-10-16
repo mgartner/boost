@@ -1,14 +1,20 @@
 class HomeController < UIViewController
   include Teacup::TableViewDelegate
-  stylesheet :home
   
   def viewDidLoad
-    layout(self.view, :root) do
-      @app_table = subview(AppTableView, :app_table)
-      @app_table.dataSource = self
-      @app_table.delegate = self
-    end
     self.title = "BOOST"
+
+    @app_table = AppTableView.alloc.initWithFrame(CGRectMake(0, 0, 320, self.view.frame.size.height))
+    @app_table.dataSource = self
+    @app_table.delegate = self
+    self.view.addSubview @app_table
+
+    @sign_out = UIBarButtonItem.alloc.initWithTitle("Sign Out", style:UIBarButtonSystemItemSave, target: self, action: "sign_out_action")
+    self.navigationItem.leftBarButtonItem = @sign_out
+
+    @refresh = UIBarButtonItem.alloc.initWithBarButtonSystemItem(UIBarButtonSystemItemRefresh, target: self, action: "refresh_action")
+    self.navigationItem.rightBarButtonItem = @refresh
+
     if App.delegate.user.nil?
       show_sign_in_controller(false)
     end
@@ -25,21 +31,44 @@ class HomeController < UIViewController
     end
   end
 
-  def viewWillDisappear(animated)
-    super
-  end
-
   def show_sign_in_controller(animated = true)
     sign_up_controller = SignInController.alloc.init
     sign_up_controller.modalTransitionStyle = UIModalTransitionStyleCoverVertical
     self.presentModalViewController(sign_up_controller, animated: animated)
   end
 
+  def sign_out_action
+    alert = UIAlertView.alloc.initWithTitle("Sign Out", 
+        message: "Are you sure you want to sign out?",
+        delegate: self,
+        cancelButtonTitle: "No",
+        otherButtonTitles: nil)
+    alert.addButtonWithTitle("Yes")
+    alert.show
+  end
+
+  def alertView(alertView, clickedButtonAtIndex: index)
+    if index == 1
+      App.delegate.user = nil
+      Heroku::User.clear
+      @apps = []
+      show_sign_in_controller
+    end
+  end
+
+  def refresh_action
+    if user = App.delegate.user
+      user.apps do |apps|
+        @apps = apps
+        @app_table.reloadData
+      end
+    end
+  end
+
   def tableView(table_view, cellForRowAtIndexPath: index_path)
     cell = table_view.dequeueReusableCellWithIdentifier(self.class.to_s) ||
-      UITableViewCell.alloc.initWithStyle(UITableViewCellStyleDefault, reuseIdentifier: self.class.to_s)
-    layout(cell, :app_table_cell)
-    cell.textLabel.text = @apps[index_path.row].name
+      AppTableViewCell.alloc.initWithStyle(UITableViewCellStyleDefault, reuseIdentifier: self.class.to_s)
+    cell.app = @apps[index_path.row]
     return cell
   end
 
@@ -47,7 +76,7 @@ class HomeController < UIViewController
     @apps ? @apps.size : 0
   end
 
-# Handle cell selection in the table to open a Player Card.
+  # Handle cell selection in the table to open a Player Card.
   def tableView(table_view, didSelectRowAtIndexPath: index_path)    
     table_view.deselectRowAtIndexPath(index_path, animated: true)
     app = @apps[index_path.row]

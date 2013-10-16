@@ -25,18 +25,11 @@ class AppDelegate
   end
 
   def customize_appearance
-    UINavigationBar.appearance.barTintColor = "#00ffcc".to_color
-=begin
-    // Navigation bar appearance (background ant title)
-
-[[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor titleColor], NSForegroundColorAttributeName, [UIFont fontWithName:@"FontNAme" size:titleSize], NSFontAttributeName, nil]];
-
-[[UINavigationBar appearance] setTintColor:[UIColor barColor]];
-
-// Navigation bar buttons appearance
-
-[[UIBarButtonItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor textBarColor], NSForegroundColorAttributeName, shadowColor, NSShadowAttributeName, [UIFont fontWithName:@"FontName" size:titleSize], NSFontAttributeName, nil];
-=end
+    UINavigationBar.appearance.barTintColor = "#ff3019".to_color#"#FFDF1F".to_color#f1c40f
+    UINavigationBar.appearance.setTitleTextAttributes({
+      UITextAttributeFont => UIFont.fontWithName("HelveticaNeue-Light", size: 20)
+    })
   end
 
+  #c0392b
 end

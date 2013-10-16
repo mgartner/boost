@@ -1,14 +1,40 @@
 class SignInController < UIViewController
-  stylesheet :sign_in
 
   def viewDidLoad
-    layout(self.view, :root) do
-      @email_field = subview(UITextField, :email_field)
-      @password_field = subview(UITextField, :password_field)
-      @submit_button = subview(UIButton, :submit_button)
-    end
+    self.view.backgroundColor = UIColor.whiteColor
+
+    @email_back = UIView.alloc.initWithFrame(CGRectMake(20, 150, 280, 40))
+    @email_back.backgroundColor = "#EEE".to_color
+    self.view.addSubview @email_back
+
+    @password_back = UIView.alloc.initWithFrame(CGRectMake(20, 200, 280, 40))
+    @password_back.backgroundColor = "#EEE".to_color
+    self.view.addSubview @password_back
+
+    @email_field = UITextField.alloc.initWithFrame(CGRectMake(30, 150, 260, 40))
+    @email_field.placeholder = "Email"
+    @email_field.font = UIFont.fontWithName("HelveticaNeue-Light", size: 20)
+    @email_field.keyboardType = UIKeyboardTypeEmailAddress
+    @email_field.autocapitalizationType = UITextAutocapitalizationTypeNone
+    @email_field.autocorrectionType = UITextAutocorrectionTypeNo
+    self.view.addSubview @email_field
+
+    @password_field = UITextField.alloc.initWithFrame(CGRectMake(30, 200, 260, 40))
+    @password_field.placeholder = "Password"
+    @password_field.backgroundColor = "#EEE".to_color
+    @password_field.secureTextEntry = true
+    @password_field.returnKeyType = UIReturnKeyGo
     @password_field.delegate = self
-    @submit_button.when(UIControlEventTouchUpInside) { login }
+    self.view.addSubview @password_field
+
+    @submit = UIButton.buttonWithType(UIButtonTypeSystem)
+    @submit.frame = CGRectMake(110, 250, 100, 40)
+    @submit.setTitle("Sign In", forState: UIControlStateNormal)
+    @submit.setTitleColor("#007AFF".to_color, forState: UIControlStateNormal)
+    @submit.titleLabel.setFont(UIFont.fontWithName("HelveticaNeue-Light", size: 20))
+    @submit.when(UIControlEventTouchUpInside) { login }
+    self.view.addSubview @submit
+
   end
 
   def login

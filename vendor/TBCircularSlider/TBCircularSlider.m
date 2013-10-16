@@ -15,7 +15,7 @@
 #define SQR(x)			( (x) * (x) )
 
 /** Parameters **/
-#define TB_SAFEAREA_PADDING 60
+#define TB_SAFEAREA_PADDING 32
 
 
 #pragma mark - Private -
@@ -45,11 +45,10 @@
         self.angle = 179;
         self.value = 0;
         
-        
         //Define the Font
         UIFont *font = [UIFont fontWithName:TB_FONTFAMILY size:TB_FONTSIZE];
-        //Calculate font size needed to display 3 numbers
-        NSString *str = @"000";
+        //Calculate font size needed to display 2 numbers
+        NSString *str = @"00";
         CGSize fontSize = [str sizeWithFont:font];
         
         //Using a TextField area we can easily modify the control to get user input from this field
@@ -58,7 +57,7 @@
                                                                   fontSize.width,
                                                                   fontSize.height)];
         _textField.backgroundColor = [UIColor clearColor];
-        _textField.textColor = [UIColor colorWithWhite:1 alpha:1.0];
+        _textField.textColor = [UIColor blackColor];//colorWithWhite:1 alpha:1.0];
         _textField.textAlignment = NSTextAlignmentCenter;
         _textField.font = font;
         _textField.text = [NSString stringWithFormat:@"%d",self.value];
@@ -119,7 +118,7 @@
     CGContextAddArc(ctx, self.frame.size.width/2, self.frame.size.height/2, radius, 0, M_PI *2, 0);
     
     //Set the stroke color to black
-    [[UIColor blackColor]setStroke];
+    [[UIColor colorWithRed:0.9 green:0.9 blue: 0.9 alpha:1.0]setStroke];
     
     //Define line width and cap
     CGContextSetLineWidth(ctx, TB_BACKGROUND_WIDTH);
@@ -164,8 +163,8 @@
     
     //list of components
     CGFloat components[8] = {
-        0.0, 1.0, 1.0, 1.0,     // Start color - Blue
-        0.0, 1.0, 0.0, 1.0 };   // End color - Yellow
+        1.0, 0.1, 0.1, 1.0,     // Start color - Yellow
+        1.0, 0.5, 0.1, 1.0 };   // End color - Red
     
     CGColorSpaceRef baseSpace = CGColorSpaceCreateDeviceRGB();
     CGGradientRef gradient = CGGradientCreateWithColorComponents(baseSpace, components, NULL, 2);
@@ -247,9 +246,6 @@
     temp = (temp * temp) / 1296.0;
     self.value = floor(temp);
 
-    //Update the textfield 
-    _textField.text = [NSString stringWithFormat:@"%d", self.value];
-    
     //Redraw
     [self setNeedsDisplay];
 }
@@ -266,6 +262,25 @@
     result.x = round(centerPoint.x + radius * cos(ToRad(-angleInt)));
     
     return result;
+}
+
+// Update the label when changing the value.
+-(void)setValue:(int)valueInt{
+  _value = valueInt;
+  _textField.text = [NSString stringWithFormat:@"%d", valueInt];
+}
+
+// Set the value of the slider and the angle.
+-(void)updateValue:(int)valueInt{
+  float temp = 0.0;
+  temp = sqrt(valueInt * 1296.0);
+  if (temp > 180) {
+    temp = 540 - temp;
+  } else {
+    temp = 180 - temp;
+  }
+  self.value = valueInt;
+  self.angle = floor(temp);
 }
 
 //Sourcecode from Apple example clockControl 
