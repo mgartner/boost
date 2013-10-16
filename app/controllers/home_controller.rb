@@ -3,6 +3,7 @@ class HomeController < UIViewController
   
   def viewDidLoad
     self.title = "BOOST"
+    self.navigationItem.backBarButtonItem = UIBarButtonItem.alloc.initWithTitle("Back", style: UIBarButtonItemStylePlain, target: nil, action: nil)
 
     @app_table = AppTableView.alloc.initWithFrame(CGRectMake(0, 0, 320, self.view.frame.size.height))
     @app_table.dataSource = self
@@ -32,9 +33,9 @@ class HomeController < UIViewController
   end
 
   def show_sign_in_controller(animated = true)
-    sign_up_controller = SignInController.alloc.init
-    sign_up_controller.modalTransitionStyle = UIModalTransitionStyleCoverVertical
-    self.presentModalViewController(sign_up_controller, animated: animated)
+    sign_in_controller = SignInController.alloc.init
+    sign_in_controller.modalTransitionStyle = UIModalTransitionStyleCoverVertical
+    self.presentModalViewController(sign_in_controller, animated: animated)
   end
 
   def sign_out_action
