@@ -163,8 +163,8 @@
     
     //list of components
     CGFloat components[8] = {
-        1.0, 0.1, 0.1, 1.0,     // Start color - Yellow
-        1.0, 0.5, 0.1, 1.0 };   // End color - Red
+        0.0, 1.0, 0.2, 1.0,     // Start color - Green
+        0.1, 0.2, 1.0, 1.0 };   // End color - Blue
     
     CGColorSpaceRef baseSpace = CGColorSpaceCreateDeviceRGB();
     CGGradientRef gradient = CGGradientCreateWithColorComponents(baseSpace, components, NULL, 2);
@@ -280,7 +280,11 @@
     temp = 180 - temp;
   }
   self.value = valueInt;
-  self.angle = floor(temp);
+  if (valueInt == 0) {
+    self.angle = 179;
+  } else {
+    self.angle = floor(temp);
+  }
 }
 
 //Sourcecode from Apple example clockControl 

@@ -3,6 +3,7 @@ class AppController < UIViewController
   
   def viewDidLoad
     self.title = app.name
+    self.navigationItem.backBarButtonItem = UIBarButtonItem.alloc.initWithTitle("Back", style: UIBarButtonItemStylePlain, target: nil, action: nil)
 
     @dyno_table = DynoTableView.alloc.initWithFrame(CGRectMake(0, 0, 320, self.view.frame.size.height))
     @dyno_table.dataSource = self
@@ -42,7 +43,6 @@ class AppController < UIViewController
     dyno_controller = DynoController.alloc.init
     dyno_controller.app = @app
     dyno_controller.dyno = dyno
-    dyno_controller.title = @app.name
     App.delegate.navigation_controller.pushViewController(dyno_controller, animated: true)
   end
 
