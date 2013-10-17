@@ -9,6 +9,13 @@ class AppController < UIViewController
     @dyno_table.dataSource = self
     @dyno_table.delegate = self
     self.view.addSubview @dyno_table
+
+    @no_dynos = UILabel.alloc.initWithFrame(CGRectMake(10, 80, 300, 48))
+    @no_dynos.font = UIFont.fontWithName("HelveticaNeue-Light", size: 20)
+    @no_dynos.textAlignment = UITextAlignmentCenter
+    @no_dynos.text = "No dynos found for this app."
+    @no_dynos.hidden = true
+    self.view.addSubview @no_dynos
   end
 
   def viewWillAppear(animated)
@@ -18,6 +25,12 @@ class AppController < UIViewController
       user.dynos(app.name) do |dynos|
         @dynos = dynos
         @dyno_table.reloadData
+        @dyno_table.spinner.stopAnimating
+        if dynos.nil? || dynos.empty?
+          @no_dynos.hidden = false
+        else
+          @no_dynos.hidden = true
+        end
       end
     end
   end

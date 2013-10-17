@@ -20,6 +20,7 @@ module Heroku
     end
     
     def self.clear
+      NSURLCache.sharedURLCache.removeAllCachedResponses
       App::Persistence[KEY] = nil
     end
 
@@ -44,7 +45,6 @@ module Heroku
           json = BW::JSON.parse(response.body.to_s)
           user = User.new(json)
           user.save
-          @client = nil
           block.call(user)
         else
           block.call(nil)
@@ -83,6 +83,34 @@ module Heroku
         }
       }
     end
+=begin
+    def apps(&block)
+      BW::HTTP.get("https://api.heroku.com/apps", auth_options) do |response|
+        if response.ok?
+          apps = BW::JSON.parse(response.body.to_s)
+          apps.map! { |app_json| Heroku::App.new(app_json) }
+          block.call(apps)
+        else
+          block.call(nil)
+          block.call(nil)
+        end
+      end
+   end
+ 
+    def dynos(id, &block)
+      BW::HTTP.get("https://api.heroku.com/apps/#{id}/formation", auth_options) do |response|
+        if response.ok?
+          dynos = BW::JSON.parse(response.body.to_s)
+          dynos.map! { |dyno_json| Heroku::Dyno.new(dyno_json) }
+          dynos.delete_if { |dyno| EXCLUDE_DYNOS.include?(dyno.type) }
+          block.call(dynos)
+        else
+          block.call(nil)
+        end
+      end
+    end
+
+=end
 
     def client
       if @client.nil?
@@ -121,7 +149,7 @@ module Heroku
         end
       end
     end
-
+    
     def scale(id, type, quantity, &block)
       options = auth_options
       options[:payload] = {type: type, qty: quantity}

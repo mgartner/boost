@@ -1,4 +1,5 @@
 class AppTableView < UITableView
+  attr_accessor :spinner
 
   def initWithFrame(frame, style: style)
     super.tap do
@@ -13,13 +14,6 @@ class AppTableView < UITableView
       @spinner.center = [frame.size.width / 2, 80]
       @spinner.startAnimating
       self.addSubview(@spinner)
-    end
-  end
-
-  def reloadData
-    super
-    if numberOfRowsInSection(0) > 0
-      @spinner.stopAnimating
     end
   end
 

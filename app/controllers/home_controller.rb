@@ -10,6 +10,13 @@ class HomeController < UIViewController
     @app_table.delegate = self
     self.view.addSubview @app_table
 
+    @no_apps = UILabel.alloc.initWithFrame(CGRectMake(10, 80, 300, 48))
+    @no_apps.font = UIFont.fontWithName("HelveticaNeue-Light", size: 20)
+    @no_apps.textAlignment = UITextAlignmentCenter
+    @no_apps.text = "No Heroku apps found."
+    @no_apps.hidden = true
+    self.view.addSubview @no_apps
+
     @sign_out = UIBarButtonItem.alloc.initWithTitle("Sign Out", style:UIBarButtonSystemItemSave, target: self, action: "sign_out_action")
     self.navigationItem.leftBarButtonItem = @sign_out
 
@@ -28,6 +35,12 @@ class HomeController < UIViewController
       user.apps do |apps|
         @apps = apps
         @app_table.reloadData
+        @app_table.spinner.stopAnimating
+        if apps.nil? || apps.empty?
+          @no_apps.hidden = false
+        else
+          @no_apps.hidden = true
+        end
       end
     end
   end
@@ -62,6 +75,11 @@ class HomeController < UIViewController
       user.apps do |apps|
         @apps = apps
         @app_table.reloadData
+        if apps.nil? || apps.empty?
+          @no_apps.hidden = false
+        else
+          @no_apps.hidden = true
+        end
       end
     end
   end
@@ -77,7 +95,6 @@ class HomeController < UIViewController
     @apps ? @apps.size : 0
   end
 
-  # Handle cell selection in the table to open a Player Card.
   def tableView(table_view, didSelectRowAtIndexPath: index_path)    
     table_view.deselectRowAtIndexPath(index_path, animated: true)
     app = @apps[index_path.row]

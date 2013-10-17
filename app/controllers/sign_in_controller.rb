@@ -5,7 +5,6 @@ class SignInController < UIViewController
 
     @desc = UILabel.alloc.initWithFrame(CGRectMake(10, 50, 300, 48))
     @desc.font = UIFont.fontWithName("HelveticaNeue-Light", size: 20)
-    @desc.textColor = "#666".to_color
     @desc.textAlignment = UITextAlignmentCenter
     @desc.text = "Sign-in using your Heroku email and password."
     @desc.numberOfLines = 2

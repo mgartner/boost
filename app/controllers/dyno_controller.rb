@@ -51,6 +51,7 @@ class DynoController < UIViewController
       if response.nil?
         SVProgressHUD.showErrorWithStatus("Failed to Scale Dyno")
       else
+        NSURLCache.sharedURLCache.removeAllCachedResponses
         self.navigationItem.rightBarButtonItem.enabled = false
         SVProgressHUD.dismiss
       end
