@@ -25,11 +25,10 @@ class AppDelegate
   end
 
   def customize_appearance
-    UINavigationBar.appearance.barTintColor = "#ff3019".to_color#"#FFDF1F".to_color#f1c40f
+    UINavigationBar.appearance.barTintColor = "#00dd55".to_color
     UINavigationBar.appearance.setTitleTextAttributes({
       UITextAttributeFont => UIFont.fontWithName("HelveticaNeue-Light", size: 20)
     })
   end
 
-  #c0392b
 end

@@ -3,6 +3,14 @@ class SignInController < UIViewController
   def viewDidLoad
     self.view.backgroundColor = UIColor.whiteColor
 
+    @desc = UILabel.alloc.initWithFrame(CGRectMake(10, 50, 300, 48))
+    @desc.font = UIFont.fontWithName("HelveticaNeue-Light", size: 20)
+    @desc.textColor = "#666".to_color
+    @desc.textAlignment = UITextAlignmentCenter
+    @desc.text = "Sign-in using your Heroku email and password."
+    @desc.numberOfLines = 2
+    self.view.addSubview @desc
+
     @email_back = UIView.alloc.initWithFrame(CGRectMake(20, 150, 280, 40))
     @email_back.backgroundColor = "#EEE".to_color
     self.view.addSubview @email_back
@@ -21,6 +29,7 @@ class SignInController < UIViewController
 
     @password_field = UITextField.alloc.initWithFrame(CGRectMake(30, 200, 260, 40))
     @password_field.placeholder = "Password"
+    @password_field.font = UIFont.fontWithName("HelveticaNeue-Light", size: 20)
     @password_field.backgroundColor = "#EEE".to_color
     @password_field.secureTextEntry = true
     @password_field.returnKeyType = UIReturnKeyGo

@@ -22,54 +22,33 @@ Motion::Project::App.setup do |app|
 
   # The name of our team distribution profile, make sure to download 
   # from the Apple Provisioning Portal and install in your keychain.
-  #app.codesign_certificate = 'iPhone Distribution: GoLudo LLC'
+  app.codesign_certificate = 'iPhone Distribution: Marcus Gartner'
 
   # The bundle identifier.
-  #app.identifier = 'com.fanium.NFLFantasyFootball'
+  app.identifier = 'com.marcusgartner.boost'
 
   # The filename and full path of your distribution provisioning profile.
-  #app.development do
-  #  app.provisioning_profile = 'NFL_Fantasy_Football_Profile.mobileprovision'
-  #end
+  app.development do
+    app.provisioning_profile = 'boost_ad_hoc.mobileprovision'
+  end
 
-  #app.release do
-  #  app.provisioning_profile = 'NFL_Fantasy_Football_Profile_Release.mobileprovision'
-  #end
+  app.release do
+    app.provisioning_profile = 'boost_release.mobileprovision'
+  end
 
   # Disable attached debuggers.
   app.entitlements['get-task-allow'] = false
-  
-  # Apple push services.
-  #app.entitlements['aps-environment'] = 'production'
-
-  # Include frameworks.
-  #app.frameworks += ['CoreData', 'AudioToolbox', 'CFNetwork',
-  #                   'SystemConfiguration', 'MobileCoreServices', 'Security',
-  #                   'QuartzCore', 'StoreKit', 'AssetsLibrary', 'MessageUI',
-  #                   'Twitter']
-  #app.weak_frameworks += ['CoreLocation', 'Accounts', 'AdSupport', 'Social']
-
-  # Include libraries.
-  #app.libs += ['/usr/lib/libsqlite3.dylib']
 
   # Add the necessary cocoa pods.
   app.pods do
-    #pod "PrettyKit"
     pod "SVProgressHUD"
-    #pod "DAKeyboardControl"
-    #pod "TTTAttributedLabel"
-    #pod "SVPullToRefresh"
     pod "AFNetworking", '~> 1.3.2'
-    #pod "MWFeedParser"
-    #pod "OHAttributedLabel"
     pod "iRate"
     pod "DAProgressOverlayView"
-    #pod "Facebook-iOS-SDK"
   end
 
   # Include Objective-C Libraries.
   app.vendor_project('vendor/TBCircularSlider', :static)
-  #app.vendor_project('vendor/SEHumanizedTime', :static)
 
   # Set up red/green output style.
   app.redgreen_style = :full

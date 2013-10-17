@@ -26,7 +26,7 @@ module Heroku
     def save
       user_as_data = NSKeyedArchiver.archivedDataWithRootObject(self)
       App::Persistence[KEY] = user_as_data
-    end
+    end 
 
     def self.login(username, password, &block)
       opts = {
@@ -44,6 +44,7 @@ module Heroku
           json = BW::JSON.parse(response.body.to_s)
           user = User.new(json)
           user.save
+          @client = nil
           block.call(user)
         else
           block.call(nil)
@@ -83,11 +84,24 @@ module Heroku
       }
     end
 
+    def client
+      if @client.nil?
+        encoded_auth = [":#{@api_key}"].pack('m0')
+        @client = AFMotion::Client.build("https://api.heroku.com/") do
+          header "Accept", "application/json"
+          header "Authorization", "Basic #{encoded_auth}"
+
+          operation :json
+        end
+      end
+      @client
+    end
+
     def apps(&block)
-      BW::HTTP.get("https://api.heroku.com/apps", auth_options) do |response|
-        if response.ok?
-          apps = BW::JSON.parse(response.body.to_s)
-          apps.map! { |app_json| Heroku::App.new(app_json) }
+      client.get("apps") do |result|
+        if result.success?
+          apps = result.object
+          apps = apps.map { |app_json| Heroku::App.new(app_json) }
           block.call(apps)
         else
           block.call(nil)
@@ -96,10 +110,10 @@ module Heroku
     end
 
     def dynos(id, &block)
-      BW::HTTP.get("https://api.heroku.com/apps/#{id}/formation", auth_options) do |response|
-        if response.ok?
-          dynos = BW::JSON.parse(response.body.to_s)
-          dynos.map! { |dyno_json| Heroku::Dyno.new(dyno_json) }
+      client.get("apps/#{id}/formation") do |result|
+        if result.success?
+          dynos = result.object
+          dynos = dynos.map { |dyno_json| Heroku::Dyno.new(dyno_json) }
           dynos.delete_if { |dyno| EXCLUDE_DYNOS.include?(dyno.type) }
           block.call(dynos)
         else
@@ -112,17 +126,6 @@ module Heroku
       options = auth_options
       options[:payload] = {type: type, qty: quantity}
       BW::HTTP.post("https://api.heroku.com/apps/#{id}/ps/scale", options) do |response|
-        if response.ok?
-          block.call(response.body)
-        else
-          block.call(nil)
-        end
-      end
-    end
-
-    # TODO: Experimental.
-    def restart(id, &block)
-      BW::HTTP.post("https://api.heroku.com/apps/#{id}/ps/restart", auth_options) do |response|
         if response.ok?
           block.call(response.body)
         else
