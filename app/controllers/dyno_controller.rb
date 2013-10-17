@@ -11,15 +11,15 @@ class DynoController < UIViewController
     @command.text = dyno.command
     self.view.addSubview @command
 
-    @dyno_size = UILabel.alloc.initWithFrame(CGRectMake(270, 73, 40, 44))
-    @dyno_size.font = UIFont.fontWithName("HelveticaNeue-Medium", size: 20)
-    @dyno_size.textColor = "#777".to_color
-    @dyno_size.textAlignment = UITextAlignmentRight
+    @dyno_size = BoostCircleLabel.alloc.initWithFrame(CGRectMake(280, 80, 30, 30))
+    @dyno_size.font = UIFont.fontWithName("HelveticaNeue-Bold", size: 15)
     @dyno_size.text = "#{dyno.size}x"
     if @dyno.size == 1
-      @dyno_size.textColor = "#8e44ad".to_color
+      @dyno_size.fillColor = "#EAEAEA".to_color
+      @dyno_size.textColor = "#2c3e50".to_color
     elsif @dyno.size == 2
-      @dyno_size.textColor = "#2c3eb0".to_color
+      @dyno_size.fillColor = "#AAAAEA".to_color
+      @dyno_size.textColor = UIColor.whiteColor
     end
     self.view.addSubview @dyno_size 
 

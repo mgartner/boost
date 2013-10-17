@@ -13,14 +13,12 @@ class DynoTableViewCell < UITableViewCell
       @command.font = UIFont.fontWithName("CourierNewPSMT", size: 16)
       self.contentView.addSubview @command
       
-      @dyno_number = UILabel.alloc.initWithFrame(CGRectMake(240, 6, 40, 24))
-      @dyno_number.font = UIFont.fontWithName("HelveticaNeue-Light", size: 20)
-      @dyno_number.textAlignment = UITextAlignmentRight
+      @dyno_number = UILabel.alloc.initWithFrame(CGRectMake(245, 6, 40, 24))
+      @dyno_number.font = UIFont.fontWithName("HelveticaNeue", size: 20)
+      @dyno_number.textAlignment = UITextAlignmentCenter
       self.contentView.addSubview @dyno_number
 
-      @dyno_size = UILabel.alloc.initWithFrame(CGRectMake(240, 35, 40, 20))
-      @dyno_size.font = UIFont.fontWithName("HelveticaNeue-Medium", size: 16)
-      @dyno_size.textAlignment = UITextAlignmentRight
+      @dyno_size = BoostCircleLabel.alloc.initWithFrame(CGRectMake(252, 31, 26, 26))
       self.contentView.addSubview @dyno_size
 
     end
@@ -32,11 +30,11 @@ class DynoTableViewCell < UITableViewCell
     @dyno_size.text = "#{dyno.size.to_s}x"
     @dyno_number.text = dyno.quantity.to_s
     if dyno.size == 1
-      @dyno_size.textColor = "#8e44ad".to_color
+      @dyno_size.fillColor = "#EAEAEA".to_color
+      @dyno_size.textColor = "#2c3e50".to_color
     elsif dyno.size == 2
-      @dyno_size.textColor = "#2c3eb0".to_color
-    else
-      @dyno_size.textColor = "#777".to_color
+      @dyno_size.fillColor = "#AAAAEA".to_color
+      @dyno_size.textColor = UIColor.whiteColor
     end
   end
 
