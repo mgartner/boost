@@ -5,8 +5,8 @@ class AppTableViewCell < UITableViewCell
 
       self.accessoryType = UITableViewCellAccessoryDisclosureIndicator
 
-      @title = UILabel.alloc.initWithFrame(CGRectMake(15, 20, 240, 22))
-      @title.font = UIFont.fontWithName("HelveticaNeue-Light", size: 18)
+      @title = UILabel.alloc.initWithFrame(CGRectMake(15, 18, 240, 26))
+      @title.font = UIFont.fontWithName("HelveticaNeue-Light", size: 20)
       self.contentView.addSubview @title
     end
   end

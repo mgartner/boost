@@ -40,7 +40,7 @@ class SignInController < UIViewController
     @submit.frame = CGRectMake(110, 250, 100, 40)
     @submit.setTitle("Sign In", forState: UIControlStateNormal)
     @submit.setTitleColor("#007AFF".to_color, forState: UIControlStateNormal)
-    #@submit.titleLabel.setFont(UIFont.fontWithName("HelveticaNeue-Light", size: 20))
+    @submit.titleLabel.setFont(UIFont.fontWithName("HelveticaNeue-Light", size: 20))
     @submit.when(UIControlEventTouchUpInside) { login }
     self.view.addSubview @submit
 

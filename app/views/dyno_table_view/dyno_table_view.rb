@@ -2,17 +2,17 @@ class DynoTableView < UITableView
 
   def initWithFrame(frame, style: style)
     super.tap do
-      self.rowHeight = 60
+      self.rowHeight = 62
 
       zero_view = UIView.alloc.initWithFrame(CGRectZero)
       zero_view.backgroundColor = UIColor.clearColor
-      self.setTableFooterView(zero_view)
+      self.setTableFooterView zero_view
 
-      @spinner = UIActivityIndicatorView.alloc.initWithActivityIndicatorStyle(UIActivityIndicatorViewStyleWhite)
+      @spinner = UIActivityIndicatorView.alloc.initWithActivityIndicatorStyle(UIActivityIndicatorViewStyleGray)
       @spinner.hidesWhenStopped = true
-      @spinner.center = [frame.size.width / 2, 60]
+      @spinner.center = [frame.size.width / 2, 80]
       @spinner.startAnimating
-      self.addSubview(@spinner)
+      self.addSubview @spinner
     end
   end
 
