@@ -53,6 +53,9 @@ Motion::Project::App.setup do |app|
   # Set up red/green output style.
   app.redgreen_style = :full
 
+  # Customize status bar color.
+  app.info_plist['UIViewControllerBasedStatusBarAppearance'] = true
+
   # Force portrait mode.
   app.interface_orientations = [:portrait]
 

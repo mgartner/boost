@@ -5,12 +5,14 @@ class AppDelegate
     # Enable the Network Activity Indicator for AFMotion requests.
     AFNetworkActivityIndicatorManager.sharedManager.setEnabled(true)
 
-    #irate = IRate.sharedInstance
-    #irate.messageTitle = "Rate Fanium"
-    #irate.message = "Please take a moment to rate Fanium Fantasy Football. Thanks for playing!"
-    #irate.rateButtonLabel = "Rate It Now"
-    #irate.remindButtonLabel = "Remind Me Later"
-    #irate.cancelButtonLabel = "No Thanks"
+    irate = IRate.sharedInstance
+    irate.messageTitle = "Review Boost for Heroku"
+    irate.message = "Please take a moment to rate Boost for Heroku. Your feedback is greatly appreciated."
+    irate.rateButtonLabel = "Rate It Now"
+    irate.remindButtonLabel = "Remind Me Later"
+    irate.cancelButtonLabel = "No Thanks"
+    irate.daysUntilPrompt = 3
+    irate.usesUntilPrompt = 3
   end
 
   def application(application, didFinishLaunchingWithOptions:launchOptions)
@@ -27,7 +29,7 @@ class AppDelegate
   def customize_appearance
     UINavigationBar.appearance.barTintColor = "#00dd55".to_color
     UINavigationBar.appearance.setTitleTextAttributes({
-      UITextAttributeFont => UIFont.fontWithName("HelveticaNeue-Light", size: 20)
+      UITextAttributeFont => UIFont.fontWithName("HelveticaNeue-Medium", size: 18)
     })
   end
 

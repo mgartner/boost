@@ -2,7 +2,7 @@ class HomeController < UIViewController
   include Teacup::TableViewDelegate
   
   def viewDidLoad
-    self.title = "BOOST"
+    self.title = "Boost"
     self.navigationItem.backBarButtonItem = UIBarButtonItem.alloc.initWithTitle("Back", style: UIBarButtonItemStylePlain, target: nil, action: nil)
 
     @app_table = AppTableView.alloc.initWithFrame(CGRectMake(0, 0, 320, self.view.frame.size.height))
@@ -66,6 +66,7 @@ class HomeController < UIViewController
       App.delegate.user = nil
       Heroku::User.clear
       @apps = []
+      @app_table.reloadData
       show_sign_in_controller
     end
   end
