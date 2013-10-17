@@ -17,7 +17,7 @@ Motion::Project::App.setup do |app|
   app.version = "1.0.0"
   app.short_version = "1.0.0"
 
-  # Set the SDK to 6.0.
+  # Set the SDK to 7.0.
   app.deployment_target = "7.0"
 
   # The name of our team distribution profile, make sure to download 
@@ -44,7 +44,6 @@ Motion::Project::App.setup do |app|
     pod "SVProgressHUD"
     pod "AFNetworking", '~> 1.3.2'
     pod "iRate"
-    pod "DAProgressOverlayView"
   end
 
   # Include Objective-C Libraries.
@@ -53,16 +52,13 @@ Motion::Project::App.setup do |app|
   # Set up red/green output style.
   app.redgreen_style = :full
 
-  # Customize status bar color.
-  app.info_plist['UIViewControllerBasedStatusBarAppearance'] = true
-
   # Force portrait mode.
   app.interface_orientations = [:portrait]
 
   # Set app icons.
-  app.icons = ["homescreen_icon57.png", "homescreen_icon72.png", 
-               "homescreen_icon114.png", "homescreen_icon144.png",
-               "homescreen_icon512.png", "homescreen_icon1024.png"]
+  app.icons = ["icon57.png", "icon72.png", "icon114.png", "icon144.png",
+               "icon512.png", "icon1024.png", "icon76.png", "icon120.png",
+               "icon152.png"]
 
   # Turn off the iOS reflective shine.
   app.prerendered_icon = true

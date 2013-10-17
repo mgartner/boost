@@ -12,7 +12,7 @@ class DynoController < UIViewController
     self.view.addSubview @command
 
     @dyno_size = UILabel.alloc.initWithFrame(CGRectMake(270, 73, 40, 44))
-    @dyno_size.font = UIFont.fontWithName("HelveticaNeue-Medium", size: 16)
+    @dyno_size.font = UIFont.fontWithName("HelveticaNeue-Medium", size: 20)
     @dyno_size.textColor = "#777".to_color
     @dyno_size.textAlignment = UITextAlignmentRight
     @dyno_size.text = "#{dyno.size}x"
