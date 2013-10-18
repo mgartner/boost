@@ -1,12 +1,12 @@
 PODS:
   - AFNetworking (1.3.2)
   - iRate (1.7.5)
-  - SVProgressHUD (0.9)
+  - SVProgressHUD (HEAD based on 0.9)
 
 DEPENDENCIES:
   - AFNetworking (~> 1.3.2)
   - iRate
-  - SVProgressHUD
+  - SVProgressHUD (HEAD)
 
 SPEC CHECKSUMS:
   AFNetworking: 7f9bcd7c287a75476cd5c61e82fd3380e93e4c54

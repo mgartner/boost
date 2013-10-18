@@ -41,7 +41,7 @@ Motion::Project::App.setup do |app|
 
   # Add the necessary cocoa pods.
   app.pods do
-    pod "SVProgressHUD"
+    pod "SVProgressHUD", :head
     pod "AFNetworking", '~> 1.3.2'
     pod "iRate"
   end
