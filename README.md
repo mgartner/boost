@@ -2,7 +2,7 @@ Boost for Heroku
 ================
 
 Boost for Heroku is a simple app for scaling Heroku dynos from an iOS device.
-I created it because managing my Heroku apps from a mobile browser is nearly
+I created it because managing Heroku apps from a mobile browser is nearly
 impossible due to the dashboard interface.
 
 I built Boost with [RubyMotion](http://www.rubymotion.com/).
